@@ -21,9 +21,19 @@ try {
         if (isset($_FILES['archivo'])) {
             $archivo = $_FILES['archivo'];
 
-            if (move_uploaded_file($archivo['tmp_name'], $carpetaRuta . '/' . $archivo['name'])) {
-                $subido = true;
-                $mensaje = "Archivo subido con éxito.";
+            $permitidos = ['jpg', 'png', 'pdf', 'docx', 'txt']; // Extensiones permitidas
+            $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
+
+            if (!in_array(strtolower($extension), $permitidos)) {
+                die("Tipo de archivo no permitido.");
+            }
+
+            // Renombrar archivo para evitar sobreescrituras
+            $archivoNombreSeguro = time() . "_" . basename($archivo['name']);
+            $destino = $carpetaRuta . '/' . $archivoNombreSeguro;
+
+            if (move_uploaded_file($archivo['tmp_name'], $destino)) {
+
             } else {
                 throw new Exception("Error al subir el archivo.");
             }
