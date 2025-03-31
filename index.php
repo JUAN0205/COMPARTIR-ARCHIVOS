@@ -1,5 +1,12 @@
 <?php
 $carpetaNombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
+$carpetaNombre = preg_replace('/[^a-zA-Z0-9_-]/', '', $carpetaNombre); // Solo letras, números, guiones bajos y medios
+$carpetaRuta = realpath("./descarga/") . '/' . $carpetaNombre;
+
+// Verifica que no intente salir del directorio permitido
+if (strpos($carpetaRuta, realpath("./descarga/")) !== 0) {
+    die("Acceso no permitido.");
+}
 $carpetaRuta = "./descarga/" . $carpetaNombre;
 
 try {
