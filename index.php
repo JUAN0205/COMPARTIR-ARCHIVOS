@@ -65,6 +65,13 @@ try {
 } catch (Exception $e) {
     $mensaje = "Error: " . htmlspecialchars($e->getMessage());
 }
+
+// Cerrar sesión
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -132,6 +139,9 @@ try {
                     ?>
                 </div>
             </div>
+        </div>
+        <div class="container3">
+            <a href="index.php?logout=true">Cerrar sesión</a>
         </div>
     </div>
 
