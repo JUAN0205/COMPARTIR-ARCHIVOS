@@ -1,4 +1,12 @@
 <?php
+session_start();
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 $carpetaNombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';
 $carpetaNombre = preg_replace('/[^a-zA-Z0-9_-]/', '', $carpetaNombre); // Solo letras, números, guiones bajos y medios
 $carpetaRuta = realpath("./descarga/") . '/' . $carpetaNombre;
