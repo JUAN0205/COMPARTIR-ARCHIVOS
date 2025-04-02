@@ -33,7 +33,7 @@ try {
             $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION);
 
             if (!in_array(strtolower($extension), $permitidos)) {
-                die("Tipo de archivo no permitido.");
+                throw new Exception("Tipo de archivo no permitido.");
             }
 
             // Renombrar archivo para evitar sobreescrituras
